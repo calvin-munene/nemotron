@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="/fonts/fonts.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0B0F1A">
+  <meta name="description" content="Nemotron is your AI workspace for chat, groups and daily work.">
+  <meta property="og:title" content="Nemotron | Your AI workspace">
+  <meta property="og:description" content="Fast answers, smart moderation, simple buttons.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://nvidbot.onrender.com/">
+  <meta property="og:image" content="https://nvidbot.onrender.com/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <title>Nemotron | Your AI workspace</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#message">Skip to the chat</a>
+  <div class="site-frame">
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="Nemotron home">
+        <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18V6l12 12V6"/></svg></span>
+        <span class="brand-copy">
+          <strong>NEMOTRON</strong>
+          <small>AI WORKSPACE</small>
+        </span>
+      </a>
+
+      <div class="topbar-actions">
+        <a id="telegram-login" class="telegram-link login-link" href="/auth/telegram?returnTo=/">LOGIN WITH TELEGRAM</a>
+        <button id="telegram-logout" class="telegram-link login-link" type="button" hidden>LOG OUT</button>
+        <a id="telegram-link" class="telegram-link" href="#" target="_blank" rel="noreferrer" hidden>OPEN TELEGRAM</a>
+        <span class="connection-pill"><i aria-hidden="true"></i>ONLINE</span>
+        <span class="topbar-code">SECURE</span>
+      </div>
+    </header>
+
+    <main class="main-grid">
+      <section class="intro-panel" aria-labelledby="hero-title">
+        <div>
+          <p class="eyebrow"><span>01</span> // NEMOTRON</p>
+          <h1 id="hero-title">Your AI <em>workspace.</em></h1>
+          <p class="hero-copy">Chat, groups and daily work. Direct answers, short and professional.</p>
+        </div>
+
+        <div class="capability-list" aria-label="Nemotron capabilities">
+          <div class="capability">
+            <span class="capability-index">[A]</span>
+            <div><strong>Reason deeply</strong><small>Break down complex systems</small></div>
+          </div>
+          <div class="capability">
+            <span class="capability-index">[B]</span>
+            <div><strong>Build quickly</strong><small>Turn ideas into action</small></div>
+          </div>
+          <div class="capability">
+            <span class="capability-index">[C]</span>
+            <div><strong>Stay focused</strong><small>Signal over noise, always</small></div>
+          </div>
+        </div>
+
+        <dl class="system-metrics">
+          <div><dt>CORE</dt><dd>NVIDIA NIM</dd></div>
+          <div><dt>MODEL</dt><dd id="active-model">CONNECTING</dd></div>
+          <div><dt>STATE</dt><dd class="metric-live">READY</dd></div>
+        </dl>
+      </section>
+
+      <section class="chat-terminal" aria-labelledby="chat-title">
+        <header class="terminal-header">
+          <div>
+            <span class="terminal-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <div>
+              <h2 id="chat-title">NEMOTRON</h2>
+              <p>Secure session</p>
+            </div>
+          </div>
+          <div class="terminal-controls">
+            <label class="model-picker" for="model-select">
+              <span>MODEL</span>
+              <select id="model-select" aria-label="NVIDIA AI model" disabled>
+                <option value="">LOADING NVIDIA MODELS...</option>
+              </select>
+            </label>
+            <span class="session-code">ID: <b id="session-id">--------</b></span>
+          </div>
+        </header>
+
+        <div id="messages" class="messages" aria-live="polite" aria-relevant="additions text">
+          <article class="message bot">
+            <span class="avatar" aria-hidden="true">AI</span>
+            <div class="bubble">
+              <span class="message-label">NEMOTRON</span>
+              <p>What are we working on?</p>
+            </div>
+          </article>
+        </div>
+
+        <div id="suggestions" class="suggestions" aria-label="Suggested prompts">
+          <button type="button" data-prompt="Help me turn an idea into a practical step-by-step plan."><span>01</span> Plan a project</button>
+          <button type="button" data-prompt="Help me debug a difficult technical problem."><span>02</span> Debug a problem</button>
+          <button type="button" data-prompt="Explain a complex topic clearly, then give me an example."><span>03</span> Explain a system</button>
+        </div>
+
+        <form id="chat-form" class="composer">
+          <label class="sr-only" for="message">Message Nemotron</label>
+          <span class="prompt-prefix" aria-hidden="true">&gt;_</span>
+          <textarea id="message" rows="1" maxlength="8000" placeholder="Ask Nemotron anything..." autocomplete="off" required></textarea>
+          <span id="char-count" class="char-count" aria-hidden="true">0 / 8000</span>
+          <button class="send-button" type="submit" aria-label="Send message">
+            <span>RUN</span><i aria-hidden="true">^</i>
+          </button>
+        </form>
+
+        <footer class="terminal-footer">
+          <span><i aria-hidden="true"></i><b id="network-status">NETWORK STABLE</b></span>
+          <span>LIVE TOKEN STREAM</span>
+          <span id="uptime">UPTIME 00:00:00</span>
+          <span>SHIFT + ENTER FOR NEW LINE</span>
+        </footer>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>(C) 2026 NEMOTRON</span>
+      <span>POWERED BY NVIDIA</span>
+      <span></span>
+    </footer>
+  </div>
+
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script src="/app.js"></script>
+</body>
+</html>

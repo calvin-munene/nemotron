@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0B0F1A">
+  <title>Nemotron</title>
+  <link rel="icon" href="/telegram/mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/fonts/fonts.css">
+  <link rel="stylesheet" href="/miniapp.css">
+</head>
+<body>
+  <div id="offline-banner" class="offline-banner" role="status" hidden>Connection lost. Nemotron will reconnect automatically.</div>
+  <div class="app-shell">
+    <header class="topbar">
+      <button id="back-button" class="icon-button" type="button" aria-label="Go back" hidden><svg class="ico" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <a class="brand" href="/home" data-route="/home" aria-label="Nemotron home">
+        <img src="/telegram/mark.svg" alt="" width="38" height="38">
+        <span><strong>Nemotron</strong></span>
+      </a>
+      <div class="topbar-actions">
+        <a id="admin-launch" class="admin-launch" href="/admin" data-route="/admin" hidden><svg class="ico" viewBox="0 0 24 24"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.500-1-8-4-8-9V7z"/></svg><strong>ADMIN</strong></a>
+        <span id="connection-state" class="connection-state"><i></i>SECURE</span>
+      </div>
+    </header>
+
+    <main id="app" class="page" tabindex="-1" aria-live="polite">
+      <section class="loading-state">
+        <span class="loader"></span>
+        <p>Authenticating secure Telegram session…</p>
+      </section>
+    </main>
+
+    <nav id="bottom-nav" class="bottom-nav" aria-label="Main navigation">
+      <a href="/home" data-route="/home"><svg class="ico" viewBox="0 0 24 24"><path d="M4 11l8-7 8 7v9H4z"/></svg>Home</a>
+      <a href="/chat" data-route="/chat"><svg class="ico" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></svg>Chat</a>
+      <a href="/models" data-route="/models"><svg class="ico" viewBox="0 0 24 24"><path d="M12 3l8 4.500v9L12 21l-8-4.500v-9z"/><path d="M12 12l8-4.500M12 12v9M12 12L4 7.500"/></svg>Models</a>
+      <a href="/usage" data-route="/usage"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 7v5l3 2"/></svg>Usage</a>
+      <a href="/settings" data-route="/settings"><svg class="ico" viewBox="0 0 24 24"><path d="M5 7h14M5 17h14"/><circle cx="9" cy="7" r="2"/><circle cx="15" cy="17" r="2"/></svg>Settings</a>
+      <a id="admin-nav-link" href="/admin" data-route="/admin" hidden><svg class="ico" viewBox="0 0 24 24"><path d="M12 3l8 4v5c0 5-3.500 8-8 9-4.500-1-8-4-8-9V7z"/></svg>Admin</a>
+    </nav>
+  </div>
+  <div id="toast" class="toast" role="status" hidden></div>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script src="/miniapp.js"></script>
+</body>
+</html>

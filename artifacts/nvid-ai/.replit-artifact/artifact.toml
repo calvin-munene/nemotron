@@ -1,0 +1,32 @@
+kind = "web"
+previewPath = "/"
+title = "Nemotron"
+description = "A professional Telegram-native AI workspace for chat, groups and daily work, served by the existing agent service."
+version = "1.0.0"
+id = "artifacts/nvid-ai"
+router = "path"
+
+[[services]]
+name = "web"
+paths = ["/"]
+localPort = 20193
+
+[services.development]
+run = "npm --prefix ../../ai-agent start"
+
+[services.production.build]
+args = ["npm", "ci", "--prefix", "ai-agent", "--omit=dev", "--ignore-scripts"]
+
+[services.production.run]
+args = ["node", "ai-agent/src/server.js"]
+
+[services.production.run.env]
+NODE_ENV = "production"
+NVID_SCHEMA_MODE = "verify"
+
+[services.production.health.startup]
+path = "/health/startup"
+
+[services.env]
+PORT = "20193"
+BASE_PATH = "/"
