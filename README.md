@@ -8,6 +8,8 @@ The main application is `ai-agent/`. It is a Node.js 24 service that serves the 
 
 Read **[VPS deployment instructions](docs/VPS_DEPLOYMENT.md)** before installing. They cover PostgreSQL, environment variables, HTTPS/reverse proxy, systemd, updates, and Telegram webhook cutover.
 
+For the isolated, loopback-only Docker stage, see **[Docker staging instructions](docs/DOCKER_STAGING.md)**. It is not a production configuration.
+
 ## GitHub upload
 
 If the connected GitHub integrations cannot create the repository, follow **[the clean GitHub upload procedure](docs/GITHUB_UPLOAD.md)**. Do not push this workspace's original history: it contains an uploaded environment file.

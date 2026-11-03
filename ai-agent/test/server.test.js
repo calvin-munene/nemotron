@@ -27,6 +27,7 @@ const ENV_NAMES = [
   "WEB_SESSION_IDLE_SECONDS",
   "WEB_SESSION_ABSOLUTE_SECONDS",
   "NVIDIA_API_KEY",
+  "NVIDIA_AUTO_TOOLS",
   "NVIDIA_GLOBAL_REQUESTS_PER_HOUR",
   "NVIDIA_MAX_CONCURRENT_REQUESTS",
   "PUBLIC_URL",
@@ -51,7 +52,10 @@ function restoreEnvironment() {
 }
 
 test.afterEach(restoreEnvironment);
-test.beforeEach(() => { process.env.TELEGRAM_PAYMENTS_ENABLED = "false"; });
+test.beforeEach(() => {
+  process.env.TELEGRAM_PAYMENTS_ENABLED = "false";
+  process.env.NVIDIA_AUTO_TOOLS = "false";
+});
 
 function enableTelegramPayments() {
   process.env.TELEGRAM_BOT_TOKEN = "123:test-token";

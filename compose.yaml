@@ -1,0 +1,72 @@
+name: nemotron-stage
+
+services:
+  postgres:
+    image: postgres:16-alpine@sha256:0cefaabd882e42bcb2a2f3dc56d3ce4770560ba62fd7f197f1a2e008fd5731ab
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: nemotron
+      POSTGRES_USER: nemotron
+      # STAGING ONLY: the database has no published port and this network is internal.
+      POSTGRES_HOST_AUTH_METHOD: trust
+    volumes:
+      - nemotron-stage-postgres-data:/var/lib/postgresql/data
+    networks:
+      - nemotron-internal
+    mem_limit: 512m
+    cpus: 0.5
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U nemotron -d nemotron"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  app:
+    build:
+      context: ./ai-agent
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: "3000"
+      LOG_LEVEL: info
+      DATABASE_URL: postgresql://nemotron@postgres:5432/nemotron
+      TELEGRAM_STARS_REQUIRED: "false"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:3101:3000"
+    networks:
+      - nemotron-internal
+    mem_limit: 768m
+    cpus: 0.75
+    healthcheck:
+      test:
+        - CMD
+        - node
+        - -e
+        - "fetch('http://127.0.0.1:3000/health/live').then(r => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))"
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 45s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  nemotron-internal:
+    internal: true
+
+volumes:
+  nemotron-stage-postgres-data:
+    name: nemotron-stage-postgres-data
