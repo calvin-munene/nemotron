@@ -32,6 +32,9 @@ services:
       context: ./ai-agent
       dockerfile: Dockerfile
     restart: unless-stopped
+    env_file:
+      - path: /opt/nemotron/secrets/nemotron.env
+        required: false
     environment:
       NODE_ENV: production
       PORT: "3000"
@@ -44,6 +47,7 @@ services:
     ports:
       - "127.0.0.1:3101:3000"
     networks:
+      - nemotron-egress
       - nemotron-internal
     mem_limit: 768m
     cpus: 0.75
@@ -64,7 +68,10 @@ services:
         max-file: "3"
 
 networks:
+  nemotron-egress:
+    name: nemotron-stage_nemotron-egress
   nemotron-internal:
+    name: nemotron-stage_nemotron-internal
     internal: true
 
 volumes:

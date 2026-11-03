@@ -3,7 +3,8 @@
 `compose.yaml` is a staging deployment, not the public production configuration.
 It uses pinned Node 24 and PostgreSQL 16 images, a private database network, an
 isolated persistent database volume, and a web port bound only to
-`127.0.0.1:3101`.
+`127.0.0.1:3101`. The app also has a separate outbound bridge network; PostgreSQL
+is not attached to it and has no published port.
 
 The database uses PostgreSQL trust authentication only because it has no published
 port, is on an internal Docker network, and contains no production data. Do not
@@ -11,9 +12,29 @@ reuse this setting for a publicly reachable or production database. Add producti
 database credentials, configure an approved HTTPS hostname, and migrate and verify
 production data before any live cutover.
 
-No NVIDIA or Telegram credentials are passed to this stage. In particular, do not
-set `TELEGRAM_BOT_TOKEN`: starting with the production bot token changes its
-Telegram webhook. The existing Replit deployment stays untouched.
+The app has an optional NVIDIA environment file at
+`/opt/nemotron/secrets/nemotron.env`. It is outside the Git checkout, excluded
+from the image, and not created by this deployment. To add the NVIDIA key later,
+create the directory and empty file on the VPS:
+
+```sh
+install -d -m 700 /opt/nemotron/secrets
+install -m 600 /dev/null /opt/nemotron/secrets/nemotron.env
+```
+
+Edit the file privately over SSH and add one line beginning with `NVIDIA_API_KEY=`
+followed by the key. Do not put the key in chat, Git, or a browser-accessible
+setting. Replit Secrets do not automatically transfer to the VPS.
+
+Then recreate only the app container to load it:
+
+```sh
+docker compose -f compose.yaml up -d --no-deps --force-recreate app
+```
+
+No Telegram credentials are passed to this stage. In particular, do not set
+`TELEGRAM_BOT_TOKEN`: starting with the production bot token changes its Telegram
+webhook. The existing Replit deployment stays untouched.
 
 From the repository root on the VPS:
 
